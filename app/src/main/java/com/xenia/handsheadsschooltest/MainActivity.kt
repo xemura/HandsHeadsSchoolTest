@@ -10,6 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.xenia.handsheadsschooltest.classes.Monster
+import com.xenia.handsheadsschooltest.classes.Player
+import com.xenia.handsheadsschooltest.presentation.MainScreen
 import com.xenia.handsheadsschooltest.ui.theme.HandsHeadsSchoolTestTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,30 +20,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HandsHeadsSchoolTestTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+
+                val player = Player("Mark")
+                player.health = 100
+                player.attack = 20
+                player.protection = 10
+
+                val monster = Monster()
+                monster.health = 100
+                monster.attack = 10
+                monster.protection = 10
+
+                MainScreen(player, monster)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HandsHeadsSchoolTestTheme {
-        Greeting("Android")
     }
 }
