@@ -13,14 +13,14 @@ class Player(
 
     fun playerAttack(
         attacker: Player,
-        protector: Monster) : Boolean
+        defender: Monster) : Boolean
     {
-        if (attackSuccess(attacker.attack, protector.protection)
-            && protector.health in 1..100)
+        if (attackSuccess(attacker.attack, defender.defense)
+            && defender.health in 1..100)
         {
-            protector.health -= attacker.damage.random()
+            defender.health -= attacker.damage.random()
         }
-        return protector.health > 0
+        return defender.health > 0
     }
 
     fun healingPlayer(player: Player) {

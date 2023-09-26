@@ -2,7 +2,7 @@ package com.xenia.handsheadsschooltest.classes
 
 open class Entity() {
     var attack: Int = 1
-    var protection: Int = 30
+    var defense: Int = 1
     var health: Int = 100
-    var damage: List<Int> = listOf(5, 6, 7, 8, 9, 10)
+    var damage: List<Int> = listOf(1, 2, 3, 4, 5, 6)
 }

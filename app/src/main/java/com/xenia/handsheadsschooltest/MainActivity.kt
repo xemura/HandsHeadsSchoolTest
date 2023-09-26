@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 monster.health = 100
 
                 Surface(
-                    color = MaterialTheme.colorScheme.background
+                    color = Color.Black
                 ) {
                     // create navController
                     val navController = rememberNavController()

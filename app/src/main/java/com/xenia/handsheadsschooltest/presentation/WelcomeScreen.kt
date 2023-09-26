@@ -1,11 +1,15 @@
 package com.xenia.handsheadsschooltest.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -14,13 +18,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.xenia.handsheadsschooltest.classes.Monster
 import com.xenia.handsheadsschooltest.classes.Player
+import com.xenia.handsheadsschooltest.exception.CustomException
 import com.xenia.handsheadsschooltest.presentation.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,66 +36,91 @@ fun WelcomeScreen(
     monster: Monster
 ) {
     val playerAttack = remember{ mutableStateOf("") }
-    val playerProtection = remember{ mutableStateOf("") }
+    val playerDefense = remember{ mutableStateOf("") }
 
     val monsterAttack = remember{ mutableStateOf("") }
-    val monsterProtection = remember{ mutableStateOf("") }
+    val monsterDefense = remember{ mutableStateOf("") }
+
+    val exception = CustomException()
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Player")
+        Text(text = "Player", color = Color.White, fontSize = 22.sp)
 
-        Text(playerAttack.value, fontSize = 28.sp)
+        Spacer(modifier = Modifier.height(8.dp))
 
         TextField(
             value = playerAttack.value,
-            textStyle = TextStyle(fontSize=25.sp),
+            textStyle = TextStyle(fontSize=22.sp),
+            placeholder = { Text(text = "player attack", fontSize=22.sp, color = Color.LightGray) },
             onValueChange = {newText -> playerAttack.value = newText}
         )
-
-        Text(playerProtection.value, fontSize = 28.sp)
+        
+        Spacer(modifier = Modifier.height(8.dp))
 
         TextField(
-            value = playerProtection.value,
-            textStyle = TextStyle(fontSize=25.sp),
-            onValueChange = {newText -> playerProtection.value = newText}
+            value = playerDefense.value,
+            textStyle = TextStyle(fontSize=22.sp),
+            placeholder = { Text(text = "player defense", fontSize=22.sp, color = Color.LightGray) },
+            onValueChange = {newText -> playerDefense.value = newText}
         )
 
-        Text(text = "Monster")
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Text(monsterAttack.value, fontSize = 28.sp)
+        Text(text = "Monster", color = Color.White, fontSize = 22.sp)
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         TextField(
             value = monsterAttack.value,
-            textStyle = TextStyle(fontSize=25.sp),
+            textStyle = TextStyle(fontSize=22.sp),
+            placeholder = { Text(text = "monster attack", fontSize=22.sp, color = Color.LightGray) },
             onValueChange = {newText -> monsterAttack.value = newText}
         )
 
-        Text(monsterProtection.value, fontSize = 28.sp)
+        Spacer(modifier = Modifier.height(8.dp))
 
         TextField(
-            value = monsterProtection.value,
-            textStyle = TextStyle(fontSize=25.sp),
-            onValueChange = {newText -> monsterProtection.value = newText}
+            value = monsterDefense.value,
+            textStyle = TextStyle(fontSize=22.sp),
+            placeholder = { Text(text = "monster defense", fontSize=22.sp, color = Color.LightGray) },
+            onValueChange = {newText -> monsterDefense.value = newText}
         )
 
-        OutlinedButton(
-            modifier = Modifier.padding(20.dp),
-            onClick = {
-                // proverka
-                player.attack = playerAttack.value.toInt()
-                player.protection = playerProtection.value.toInt()
+        Spacer(modifier = Modifier.height(28.dp))
 
-                monster.attack = monsterAttack.value.toInt()
-                monster.protection = monsterProtection.value.toInt()
+        OutlinedButton(
+            shape = RoundedCornerShape(20.dp),
+            onClick = {
+
+                if (playerAttack.value.toInt() in 1..30)
+                    player.attack = playerAttack.value.toInt()
+                else exception.attackParamException()
+
+                if (playerDefense.value.toInt() in 1..30)
+                    player.defense = playerDefense.value.toInt()
+                else exception.defenseParamException()
+
+                if (monsterAttack.value.toInt() in 1..30)
+                    monster.attack = monsterAttack.value.toInt()
+                else exception.attackParamException()
+
+                if (monsterDefense.value.toInt() in 1..30)
+                    monster.defense = monsterDefense.value.toInt()
+                else exception.defenseParamException()
 
                 navController.navigate(Screen.GameScreen.route)
             }
         ) {
-            Text("Play", fontSize = 22.sp)
+            Text(
+                "Play",
+                fontSize = 22.sp,
+                color = Color.White,
+                modifier = Modifier.padding(5.dp)
+            )
         }
     }
 }
