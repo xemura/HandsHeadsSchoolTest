@@ -10,9 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.xenia.handsheadsschooltest.classes.Monster
 import com.xenia.handsheadsschooltest.classes.Player
-import com.xenia.handsheadsschooltest.presentation.MainScreen
+import com.xenia.handsheadsschooltest.presentation.GameScreen
+import com.xenia.handsheadsschooltest.presentation.WelcomeScreen
+import com.xenia.handsheadsschooltest.presentation.util.Screen
 import com.xenia.handsheadsschooltest.ui.theme.HandsHeadsSchoolTestTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,18 +25,38 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HandsHeadsSchoolTestTheme {
-
                 val player = Player("Mark")
                 player.health = 100
-                player.attack = 20
-                player.protection = 10
 
                 val monster = Monster()
                 monster.health = 100
-                monster.attack = 10
-                monster.protection = 10
 
-                MainScreen(player, monster)
+                Surface(
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    // create navController
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.WelcomeScreen.route
+                    ) {
+                        composable(route = Screen.WelcomeScreen.route) {
+                            WelcomeScreen(
+                                navController = navController,
+                                player,
+                                monster
+                            )
+                        }
+                        composable(route = Screen.GameScreen.route) {
+                            GameScreen(
+                                navController = navController,
+                                player,
+                                monster
+                            )
+                        }
+                    }
+
+                }
             }
         }
     }

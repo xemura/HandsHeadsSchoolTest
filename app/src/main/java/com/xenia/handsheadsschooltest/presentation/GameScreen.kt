@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.xenia.handsheadsschooltest.R
 import com.xenia.handsheadsschooltest.classes.Monster
 import com.xenia.handsheadsschooltest.classes.Player
@@ -32,7 +33,10 @@ import java.util.Timer
 import java.util.TimerTask
 
 @Composable
-fun MainScreen(player: Player, monster: Monster) {
+fun GameScreen(navController: NavController,
+               player: Player,
+               monster: Monster)
+{
     var healthPlayer by remember { mutableStateOf(1.0f) }
     var healthMonster by remember { mutableStateOf(1.0f) }
     var gameOver by remember { mutableStateOf(false) }
@@ -53,7 +57,8 @@ fun MainScreen(player: Player, monster: Monster) {
             }
         }
     }
-    timer.schedule(task, 1000, 3000)
+    // задание task планируется к выполнению через период в миллисекундах, переданный в параметре delay
+    timer.schedule(task,3000)
 
 
     Row(
