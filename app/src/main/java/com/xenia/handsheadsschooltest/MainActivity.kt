@@ -3,14 +3,8 @@ package com.xenia.handsheadsschooltest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -26,11 +20,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HandsHeadsSchoolTestTheme {
-                val player = Player("Mark")
-                player.health = 100
+                val player = Player("Xenia") // create object Player
+                player.health = 100 // add health, always 100
 
-                val monster = Monster()
-                monster.health = 100
+                val monster = Monster() // create object Monster
+                monster.health = 100 // add health, always 100
 
                 Surface(
                     color = Color.Black
@@ -39,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.WelcomeScreen.route
+                        startDestination = Screen.WelcomeScreen.route // start screen
                     ) {
                         composable(route = Screen.WelcomeScreen.route) {
                             WelcomeScreen(

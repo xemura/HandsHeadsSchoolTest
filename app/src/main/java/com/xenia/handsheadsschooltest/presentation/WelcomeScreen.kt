@@ -57,9 +57,9 @@ fun WelcomeScreen(
         TextField(
             value = playerAttack.value,
             textStyle = TextStyle(fontSize=22.sp),
-            placeholder = { Text(text = "player attack", fontSize=22.sp, color = Color.LightGray) },
+            placeholder = { Text(text = "player attack", fontSize = 22.sp, color = Color.LightGray) },
             maxLines = 1,
-            onValueChange = {newText -> playerAttack.value = newText},
+            onValueChange = { newText -> playerAttack.value = newText },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         
@@ -67,10 +67,10 @@ fun WelcomeScreen(
 
         TextField(
             value = playerDefense.value,
-            textStyle = TextStyle(fontSize=22.sp),
+            textStyle = TextStyle(fontSize = 22.sp),
             placeholder = { Text(text = "player defense", fontSize=22.sp, color = Color.LightGray) },
             maxLines = 1,
-            onValueChange = {newText -> playerDefense.value = newText},
+            onValueChange = { newText -> playerDefense.value = newText },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
@@ -82,10 +82,10 @@ fun WelcomeScreen(
 
         TextField(
             value = monsterAttack.value,
-            textStyle = TextStyle(fontSize=22.sp),
-            placeholder = { Text(text = "monster attack", fontSize=22.sp, color = Color.LightGray) },
+            textStyle = TextStyle(fontSize = 22.sp),
+            placeholder = { Text(text = "monster attack", fontSize = 22.sp, color = Color.LightGray) },
             maxLines = 1,
-            onValueChange = {newText -> monsterAttack.value = newText},
+            onValueChange = { newText -> monsterAttack.value = newText },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
@@ -93,10 +93,10 @@ fun WelcomeScreen(
 
         TextField(
             value = monsterDefense.value,
-            textStyle = TextStyle(fontSize=22.sp),
-            placeholder = { Text(text = "monster defense", fontSize=22.sp, color = Color.LightGray) },
+            textStyle = TextStyle(fontSize = 22.sp),
+            placeholder = { Text(text = "monster defense", fontSize = 22.sp, color = Color.LightGray) },
             maxLines = 1,
-            onValueChange = {newText -> monsterDefense.value = newText},
+            onValueChange = { newText -> monsterDefense.value = newText },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
@@ -105,7 +105,7 @@ fun WelcomeScreen(
         OutlinedButton(
             shape = RoundedCornerShape(20.dp),
             onClick = {
-
+                // checking the accuracy of data
                 if (playerAttack.value.toInt() in 1..30)
                     player.attack = playerAttack.value.toInt()
                 else exception.attackParamException()
@@ -122,6 +122,7 @@ fun WelcomeScreen(
                     monster.defense = monsterDefense.value.toInt()
                 else exception.defenseParamException()
 
+                // if ok then navigate to game
                 navController.navigate(Screen.GameScreen.route)
             }
         ) {

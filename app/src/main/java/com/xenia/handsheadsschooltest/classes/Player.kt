@@ -1,11 +1,13 @@
 package com.xenia.handsheadsschooltest.classes
 
 import com.xenia.handsheadsschooltest.attack_algorithm.attackSuccess
+import com.xenia.handsheadsschooltest.exception.CustomException
 
 class Player(
     val name : String
 ) : Entity() {
     private var numberOfHeal: Int = 4
+    private var exception = CustomException()
 
     fun getNumberOfHeal() : Int {
         return numberOfHeal
@@ -15,7 +17,10 @@ class Player(
         attacker: Player,
         defender: Monster) : Boolean
     {
-        if (attackSuccess(attacker.attack, defender.defense)
+        if (attacker.health <= 0) {
+            exception.attackingDeadException()
+        }
+        else if (attackSuccess(attacker.attack, defender.defense)
             && defender.health in 1..100)
         {
             defender.health -= attacker.damage.random()
@@ -33,6 +38,8 @@ class Player(
             }
 
             player.numberOfHeal--
+        } else if (player.numberOfHeal == 0) {
+            exception.allHealingAreUsedException()
         }
     }
 }

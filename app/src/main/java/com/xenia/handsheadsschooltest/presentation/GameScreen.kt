@@ -17,13 +17,13 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,14 +40,15 @@ fun GameScreen(navController: NavController,
                player: Player,
                monster: Monster)
 {
-    var healthPlayer by remember { mutableStateOf(1.0f) }
-    var healthMonster by remember { mutableStateOf(1.0f) }
+    var healthPlayer by remember { mutableFloatStateOf(1.0f) }
+    var healthMonster by remember { mutableFloatStateOf(1.0f) }
     var gameOver by remember { mutableStateOf(false) }
     var textPlayer by remember { mutableStateOf("") }
     var textMonster by remember { mutableStateOf("") }
 
     val exception = CustomException()
 
+    // monster attack every 2 sec
     val timer = Timer()
     val task = object : TimerTask() {
         override fun run() {
@@ -62,8 +63,7 @@ fun GameScreen(navController: NavController,
             }
         }
     }
-    // задание task планируется к выполнению через период в миллисекундах, переданный в параметре delay
-    timer.schedule(task,3000)
+    timer.schedule(task,2000)
 
 
     Row(
@@ -77,6 +77,7 @@ fun GameScreen(navController: NavController,
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text("Player", fontSize = 22.sp, color = Color.White, modifier = Modifier.padding(5.dp))
             LinearProgressIndicator(
                 progress = healthPlayer,
                 modifier = Modifier
@@ -97,6 +98,7 @@ fun GameScreen(navController: NavController,
                 modifier = Modifier.padding(20.dp),
                 onClick = {
                     if (!gameOver) {
+                        // player attack when press the button
                         if (player.playerAttack(player, monster)) {
                             healthMonster = ((monster.health).toDouble() / 100).toFloat()
                         } else {
@@ -105,15 +107,17 @@ fun GameScreen(navController: NavController,
                             gameOver = true
                         }
                     }
+                    else exception.attackingWhenGameOverException()
                 }
             ) {
                 Text("Attack", fontSize = 22.sp, color = Color.White, modifier = Modifier.padding(5.dp))
             }
-            Text("Доступных: ${player.getNumberOfHeal()}", fontSize = 16.sp, color = Color.White)
+            Text("Available heals: ${player.getNumberOfHeal()}", fontSize = 16.sp, color = Color.White)
             OutlinedButton(
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier.padding(20.dp),
                 onClick = {
+                    // player wanna get a heal
                     if (!gameOver) {
                         if (healthPlayer >= 100) {
                             exception.fullHealthException()
@@ -136,6 +140,8 @@ fun GameScreen(navController: NavController,
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text("Monster", fontSize = 22.sp, color = Color.White, modifier = Modifier.padding(5.dp))
+
             LinearProgressIndicator(
                 progress = healthMonster,
                 modifier = Modifier

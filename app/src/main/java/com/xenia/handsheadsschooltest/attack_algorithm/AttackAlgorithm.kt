@@ -4,7 +4,7 @@ fun attackSuccess(attack: Int, protection: Int) : Boolean{
     val attackModifier: Int = getAttackModifier(attack, protection)
 
     for (i in 1..attackModifier) {
-        val digit : Int = (1..6).random()
+        val digit : Int = (1..6).random() // get random digit from dice
         if (digit == 5 || digit == 6) return true
     }
     return false
