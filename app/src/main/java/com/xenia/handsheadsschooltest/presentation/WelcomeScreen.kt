@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -56,7 +58,9 @@ fun WelcomeScreen(
             value = playerAttack.value,
             textStyle = TextStyle(fontSize=22.sp),
             placeholder = { Text(text = "player attack", fontSize=22.sp, color = Color.LightGray) },
-            onValueChange = {newText -> playerAttack.value = newText}
+            maxLines = 1,
+            onValueChange = {newText -> playerAttack.value = newText},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         
         Spacer(modifier = Modifier.height(8.dp))
@@ -65,7 +69,9 @@ fun WelcomeScreen(
             value = playerDefense.value,
             textStyle = TextStyle(fontSize=22.sp),
             placeholder = { Text(text = "player defense", fontSize=22.sp, color = Color.LightGray) },
-            onValueChange = {newText -> playerDefense.value = newText}
+            maxLines = 1,
+            onValueChange = {newText -> playerDefense.value = newText},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -78,7 +84,9 @@ fun WelcomeScreen(
             value = monsterAttack.value,
             textStyle = TextStyle(fontSize=22.sp),
             placeholder = { Text(text = "monster attack", fontSize=22.sp, color = Color.LightGray) },
-            onValueChange = {newText -> monsterAttack.value = newText}
+            maxLines = 1,
+            onValueChange = {newText -> monsterAttack.value = newText},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -87,7 +95,9 @@ fun WelcomeScreen(
             value = monsterDefense.value,
             textStyle = TextStyle(fontSize=22.sp),
             placeholder = { Text(text = "monster defense", fontSize=22.sp, color = Color.LightGray) },
-            onValueChange = {newText -> monsterDefense.value = newText}
+            maxLines = 1,
+            onValueChange = {newText -> monsterDefense.value = newText},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
 
         Spacer(modifier = Modifier.height(28.dp))
